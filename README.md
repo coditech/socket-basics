@@ -97,7 +97,7 @@ Then, edit `index.js` and change the `"ok"` to `"ok!"`. Save; nodemon should res
     - Webpack, which recompiles our files everytime we save a file
     - Webpack server, which runs our front-end and restarts it everytime we save a file 
  2. in `back`, we installed:
-    - express, which will help us answer http requests (e.g, `http://localhost:3000/some-path`)
+    - express, which will help us answer http requests (e.g, `http://localhost:3000/some-path`). We will not really use it in this exercise.
     - socket.io, which will help us open permanent connections with browsers
     - nodemon, which will restart our server everytime we save
 
@@ -137,3 +137,77 @@ Now, running `npm run server` will run the server; `npm run client` will run cre
 
 1. use Razzle. Razzle comes pre-packaged with a server and a client and everything just works with one command. However, Razzle doesn't play nice with socket.io, so it would be a bother to use in this example
 2. use this repo :) but I prefer you do the work
+
+
+## - Simple Server Testing
+
+### Prepare the server:
+
+in `back/index.js`, set up a super-simple socket server. Add to the bottom of the file:
+
+```js
+const io = require('socket.io')(server);
+
+let globalNumber = 0
+
+io.on('connection', (socket) => {
+  
+  console.log('a user connected')
+	
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+	
+  socket.on('increment', () => {
+    globalNumber++
+    io.emit('number:change',globalNumber)
+  });
+
+  socket.on('decrement', () => {
+    globalNumber--
+    io.emit('number:change',globalNumber)
+  });
+
+  socket.emit('number:change',globalNumber)
+
+});
+```
+
+### Prepare the client:
+ In order for the client (browser) to communicate with the server, we're going to need to install socket.io in the client too. So, go to `/front`, and run:`npm install --save socket.io-client`
+ then, import it in `front/src/App.js`
+
+add:
+ - `import io from 'socket.io-client'` towards the top of the file
+ - in the `App` class, add:
+```js
+class App extends Component{
+
+  state = { socket:null, globalNumber:0 }
+
+  componentDidMount(){
+    const socket = io('http://localhost:8888');
+
+    this.setState({socket})
+
+    socket.on('number:change', (globalNumber) => {
+	this.setState({globalNumber})
+    })
+
+  }
+
+  onIncrement = () => this.state.socket.emit('increment')
+  onDecrement = () => this.state.socket.emit('decrement')
+  render(){
+	// do something here to show the globalNumber and use increment and decrement
+  }
+}
+```
+
+### Done for part 1
+
+At this state, you have a working server, a working client, and they communicate together
+
+** don't forget to commit **
+ 
+This would be a good moment to create a repository on github and backup your code
