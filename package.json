@@ -1,0 +1,25 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "In order to test our react app connected to a server, we need to run **two** servers:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "cd back && npm start",
+    "client": "cd front && npm start",
+    "start": "concurrently --kill-others-on-fail --names \"server client\" \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coditech/socket-basics.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coditech/socket-basics/issues"
+  },
+  "homepage": "https://github.com/coditech/socket-basics#readme",
+  "dependencies": {
+    "concurrently": "^3.5.1"
+  }
+}
