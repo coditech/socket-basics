@@ -14,7 +14,7 @@ class App extends Component {
     this.setState({socket})
 
     socket.on('number:change', (globalNumber) => {
-	this.setState({globalNumber})
+      this.setState({globalNumber})
     })
 
   }
