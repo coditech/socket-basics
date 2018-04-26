@@ -26,11 +26,13 @@ io.on('connection', (socket) => {
   socket.on('increment', () => {
     globalNumber++
     io.emit('number:change',globalNumber)
+    console.log('number has changed:',globalNumber)
   });
 
   socket.on('decrement', () => {
     globalNumber--
     io.emit('number:change',globalNumber)
+    console.log('number has changed:',globalNumber)
   });
 
   socket.emit('number:change',globalNumber)
