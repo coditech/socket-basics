@@ -6,7 +6,7 @@ import './App.css';
 
 class App extends Component {
 
-  state = { socket:null, globalNumber:0 }
+  state = { socket:null, globalNumber:0, username:'' }
 
   componentDidMount(){
     const socket = io('http://localhost:8888');
@@ -15,6 +15,14 @@ class App extends Component {
 
     socket.on('number:change', (globalNumber) => {
       this.setState({globalNumber})
+    })
+
+    socket.on('user:new', (username)=>{
+      console.log('a user called '+username+' has connected')
+    })
+
+    socket.on('user:me', (username)=>{
+      this.setState({username})
     })
 
   }
@@ -30,8 +38,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-	<h1>{this.state.globalNumber}</h1>
+	      <h1>{this.state.globalNumber}</h1>
         <p className="App-intro">
+          username:{ this.state.username }
           <button onClick={this.onIncrement}>+</button>
           <button onClick={this.onDecrement}>-</button>
         </p>

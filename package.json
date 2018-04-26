@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/coditech/socket-basics#readme",
   "dependencies": {
+    "cat-names": "^1.0.2",
     "concurrently": "^3.5.1"
   }
 }

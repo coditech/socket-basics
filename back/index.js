@@ -1,5 +1,5 @@
 const http = require('http')
-
+const catNames = require('cat-names');
 const server = http.createServer()
 
 
@@ -17,8 +17,12 @@ const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
 
+  const username = catNames.random()
+
   console.log('a user connected')
-	
+  
+  io.emit('user:new',username)
+  socket.emit('user:me',username)
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
