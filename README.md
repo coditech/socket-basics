@@ -10,7 +10,7 @@ Luckily, we don't have to invent the second one; `create-react-app` does it for 
 So:
 
  1. create a directory for the project (`> mkdir project`) and enter it (`> cd project`)
- 2. use create-react-app to create a front end application (e.g. `> create-react-app --use-npm front`)
+ 2. use create-react-app to create a front end application (e.g. `> create-react-app front --use-npm`)
  3. create a new server project:
 	- create the directory (e.g. `> mkdir back` and `> cd back`)
 	- run `npm init`
