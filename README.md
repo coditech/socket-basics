@@ -106,7 +106,7 @@ When we will want to run our app, we will need to run *both* the front-end webpa
 let's prepare a script to do that:
 
  1. in `project/`, run `npm init`
- 2. then run `npm install --save npm-run-all`
+ 2. then run `npm install --save concurrently`
  3. open `package.json`, locate the `scripts` objects, and add:
 ```json
 {
